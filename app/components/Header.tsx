@@ -87,7 +87,7 @@ const Header = () => {
 
             </div>
             <a href="#" className="text-white hover:text-gray-300 transition-colors hover:cursor-pointer">SOFTREACH</a>
-            <Button variant="default" className="mt-6 text-black bg-white text-xs">CONTACT</Button>
+            <Button variant="default" className="mt-6 text-black bg-white hover:text-white text-xs">CONTACT</Button>
           </div>
         </div>
     </div>

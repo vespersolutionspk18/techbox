@@ -1,5 +1,7 @@
 import React from "react";
 import Pill1 from "./MethodologyPills/Pill1";
+import Pill2 from "./MethodologyPills/Pill2";
+import Pill3 from "./MethodologyPills/Pill3";
 
 const MethodologyMobile = () => {
   return (
@@ -11,12 +13,10 @@ const MethodologyMobile = () => {
         <div className="flex flex-col gap-2">
           <p className="text-blue-800 text-lg">01</p>
           <h5 className="font-sans text-2xl text-black font-bold">
-            We analyze your business model
+            Tailor Made Solutions
           </h5>
           <p className="font-sans text-md text-stone-800 ">
-            The success of our projects lies in enhancing your business model.
-            We dive deep into understanding your business to evaluate its needs
-            and define clear objectives.
+            Off the shelf solutions aren't in our code. We engineer every project specifically for your needs, ensuring it's scalable, secure, and future ready from its initial build
           </p>
         </div>
         <Pill1 />
@@ -25,44 +25,27 @@ const MethodologyMobile = () => {
         <div className="flex flex-col gap-2">
           <p className="text-blue-800 text-lg">02</p>
           <h5 className="font-sans text-2xl text-black font-bold">
-            We analyze your business model
+            Speed Oriented
           </h5>
           <p className="font-sans text-md text-stone-800 ">
-            The success of our projects lies in enhancing your business model.
-            We dive deep into understanding your business to evaluate its needs
-            and define clear objectives.
+            Time and investment are vital. Meeting your deadlines is our priority. Our agile model, with your dedicated software consultant guiding progress, gets your quality MVP or full product to market quickly.
           </p>
         </div>
-        <Pill1 />
+        <Pill2 />
       </div>
       <div className="flex flex-col gap-7 mt-8">
         <div className="flex flex-col gap-2">
           <p className="text-blue-800 text-lg">03</p>
           <h5 className="font-sans text-2xl text-black font-bold">
-            We analyze your business model
+            AI First Thinking
           </h5>
           <p className="font-sans text-md text-stone-800 ">
-            The success of our projects lies in enhancing your business model.
-            We dive deep into understanding your business to evaluate its needs
-            and define clear objectives.
+            From smart automation to deep learning models, we bake AI into the foundation of our solutions, giving your business a strategic edge from the start.
           </p>
         </div>
-        <Pill1 />
+        <Pill3 />
       </div>
-      <div className="flex flex-col gap-7 mt-8">
-        <div className="flex flex-col gap-2">
-          <p className="text-blue-800 text-lg">04</p>
-          <h5 className="font-sans text-2xl text-black font-bold">
-            We analyze your business model
-          </h5>
-          <p className="font-sans text-md text-stone-800 ">
-            The success of our projects lies in enhancing your business model.
-            We dive deep into understanding your business to evaluate its needs
-            and define clear objectives.
-          </p>
-        </div>
-        <Pill1 />
-      </div>
+     
     </div>
   );
 };
