@@ -16,7 +16,7 @@ const MethodologyMobile = () => {
             Tailor Made Solutions
           </h5>
           <p className="font-sans text-md text-stone-800 ">
-            Off the shelf solutions aren't in our code. We engineer every project specifically for your needs, ensuring it's scalable, secure, and future ready from its initial build
+            Off the shelf solutions aren&apos;t in our code. We engineer every project specifically for your needs, ensuring it&apos;s scalable, secure, and future ready from its initial build
           </p>
         </div>
         <Pill1 />

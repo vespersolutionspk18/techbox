@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Threads from "../components/Backgrounds/Threads/Threads";
-import SimpleButton from "../components/SimpleButton";
 
 const Hero = () => {
   return (

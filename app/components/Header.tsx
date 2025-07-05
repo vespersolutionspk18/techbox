@@ -32,7 +32,9 @@ const Header = () => {
         scale: 0.95, 
         duration: 0.3, 
         ease: "power2.in",
-        onComplete: () => gsap.set(menuRef.current, { display: 'none' })
+        onComplete: () => {
+          gsap.set(menuRef.current, { display: 'none' })
+        }
       })
     }
   }, [isMenuOpen])
@@ -67,16 +69,18 @@ const Header = () => {
             </div>
             <Button variant="default" className="hidden lg:block ml-8 text-black bg-white text-xs hover:bg-stone-100 hover:text-black hover:cursor-pointer">CONTACT</Button>
             <div className="lg:hidden cursor-pointer w-6  h-6 flex items-center justify-center" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <RxHamburgerMenu 
-                    ref={hamburgerRef}
-                    className="text-white absolute" 
-                    size={25} 
-                />
-                <RxCross1 
-                    ref={crossRef}
-                    className="text-white absolute opacity-0" 
-                    size={25} 
-                />
+                <div ref={hamburgerRef} className="absolute">
+                    <RxHamburgerMenu 
+                        className="text-white" 
+                        size={25} 
+                    />
+                </div>
+                <div ref={crossRef} className="absolute opacity-0">
+                    <RxCross1 
+                        className="text-white" 
+                        size={25} 
+                    />
+                </div>
             </div>
         </div>
         

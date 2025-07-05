@@ -7,18 +7,21 @@ const CaseStudies = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     
     if (mediaQuery.matches) {
-      const cards = containerRef.current.querySelectorAll('.case-study-card');
+      const cards = container.querySelectorAll('.case-study-card');
       
       // Small delay to ensure layout is complete
       setTimeout(() => {
         cards.forEach((card) => {
         const overlay = card.querySelector('.card-overlay');
         const hiddenContent = card.querySelector('.hidden-content');
+        
+        if (!overlay || !hiddenContent) return;
         
         // Set initial state for hidden content
         gsap.set(hiddenContent, {
@@ -79,7 +82,7 @@ const CaseStudies = () => {
         card.addEventListener("mouseleave", handleMouseLeave);
         
         // Store cleanup function
-        (card as any)._cleanup = () => {
+        (card as HTMLElement & { _cleanup?: () => void })._cleanup = () => {
           card.removeEventListener("mouseenter", handleMouseEnter);
           card.removeEventListener("mouseleave", handleMouseLeave);
           tl.kill();
@@ -89,14 +92,13 @@ const CaseStudies = () => {
       
       // Cleanup on unmount
       return () => {
-        const cards = containerRef.current?.querySelectorAll('.case-study-card');
-        if (cards) {
-          cards.forEach((card) => {
-            if ((card as any)._cleanup) {
-              (card as any)._cleanup();
-            }
-          });
-        }
+        const cardsToCleanup = container.querySelectorAll('.case-study-card');
+        cardsToCleanup.forEach((card) => {
+          const typedCard = card as HTMLElement & { _cleanup?: () => void };
+          if (typedCard._cleanup) {
+            typedCard._cleanup();
+          }
+        });
       };
     }
   }, []);

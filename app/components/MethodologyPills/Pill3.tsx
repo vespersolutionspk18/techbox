@@ -71,8 +71,16 @@ const Pill3 = () => {
         delay: index * 0.3
       })
 
-      // Hover effects
-      pill.addEventListener('mouseenter', () => {
+      // Store event handlers for cleanup
+    })
+    
+    // Add hover effects and store handlers for cleanup
+    const eventHandlers = new Map<HTMLDivElement, { mouseenter: () => void; mouseleave: () => void }>();
+    
+    pillRefs.current.forEach((pill) => {
+      if (!pill) return
+      
+      const mouseenterHandler = () => {
         gsap.to(pill, {
           scale: 1.08,
           duration: 0.3,
@@ -84,9 +92,9 @@ const Pill3 = () => {
           duration: 0.3,
           ease: 'power2.out'
         })
-      })
+      }
 
-      pill.addEventListener('mouseleave', () => {
+      const mouseleaveHandler = () => {
         gsap.to(pill, {
           scale: 1,
           duration: 0.3,
@@ -98,7 +106,12 @@ const Pill3 = () => {
           duration: 0.3,
           ease: 'power2.out'
         })
-      })
+      }
+      
+      pill.addEventListener('mouseenter', mouseenterHandler)
+      pill.addEventListener('mouseleave', mouseleaveHandler)
+      
+      eventHandlers.set(pill, { mouseenter: mouseenterHandler, mouseleave: mouseleaveHandler })
     })
 
     // Add subtle pulse to the dashed box
@@ -109,6 +122,14 @@ const Pill3 = () => {
       yoyo: true,
       ease: 'sine.inOut'
     })
+    
+    // Cleanup function
+    return () => {
+      eventHandlers.forEach((handlers, pill) => {
+        pill.removeEventListener('mouseenter', handlers.mouseenter)
+        pill.removeEventListener('mouseleave', handlers.mouseleave)
+      })
+    }
 
   }, [])
 
@@ -125,7 +146,7 @@ const Pill3 = () => {
       {/* LEFT pills (absolutely positioned) */}
       <div ref={leftGroupRef} className="absolute left-1/2 top-1/2 -translate-x-[200px] lg:-translate-x-[320px] -translate-y-[20px] space-y-3 lg:space-y-4">
         <div 
-          ref={el => pillRefs.current[0] = el}
+          ref={el => {pillRefs.current[0] = el}}
           className="flex items-center border border-dashed border-gray-300 rounded-xl px-2 lg:px-3 py-1.5 lg:py-2 bg-white cursor-pointer -translate-x-12 lg:-translate-x-16"
         >
           <div className="pill-icon bg-blue-100 text-blue-600 p-1.5 rounded-md mr-2">
@@ -134,7 +155,7 @@ const Pill3 = () => {
           <span className="text-[10px] lg:text-xs font-semibold uppercase tracking-wide text-gray-900">SMART AUTOMATION</span>
         </div>
         <div 
-          ref={el => pillRefs.current[1] = el}
+          ref={el => {pillRefs.current[1] = el}}
           className="flex items-center border border-dashed border-gray-300 rounded-xl px-2 lg:px-3 py-1.5 lg:py-2 bg-white cursor-pointer"
         >
           <div className="pill-icon bg-blue-100 text-blue-600 p-1.5 rounded-md mr-2">
@@ -147,7 +168,7 @@ const Pill3 = () => {
       {/* RIGHT pills (absolutely positioned) */}
       <div ref={rightGroupRef} className="absolute left-1/2 top-1/2 translate-x-[20px] lg:translate-x-[100px] -translate-y-[80px] space-y-3 lg:space-y-4">
         <div 
-          ref={el => pillRefs.current[2] = el}
+          ref={el => {pillRefs.current[2] = el}}
           className="flex items-center border border-dashed border-gray-300 rounded-xl px-2 lg:px-3 py-1.5 lg:py-2 bg-white cursor-pointer"
         >
           <div className="pill-icon bg-blue-100 text-blue-600 p-1.5 rounded-md mr-2">
@@ -156,7 +177,7 @@ const Pill3 = () => {
           <span className="text-[10px] lg:text-xs font-semibold uppercase tracking-wide text-gray-900">AI-POWERED</span>
         </div>
         <div 
-          ref={el => pillRefs.current[3] = el}
+          ref={el => {pillRefs.current[3] = el}}
           className="flex items-center border border-dashed border-gray-300 rounded-xl px-2 lg:px-3 py-1.5 lg:py-2 bg-white cursor-pointer translate-x-12 lg:translate-x-16"
         >
           <div className="pill-icon bg-blue-100 text-blue-600 p-1.5 rounded-md mr-2">

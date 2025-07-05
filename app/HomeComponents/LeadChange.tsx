@@ -43,27 +43,16 @@ const LeadChange = () => {
   }, []);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const container = containerRef.current;
+    if (!container) return;
 
     const mediaQuery = window.matchMedia("(min-width: 1024px)");
     
     if (mediaQuery.matches) {
-      // Wait for button to be in DOM
-      setTimeout(() => {
-        if (!buttonRef.current) return;
-        
-        // Set initial button state
-        gsap.set(buttonRef.current, {
-          opacity: 0,
-          scale: 0,
-          xPercent: -50,
-          yPercent: -50
-        });
-
       const handleMouseMove = (e: MouseEvent) => {
         if (!buttonRef.current || !isHovered) return;
         
-        const rect = containerRef.current!.getBoundingClientRect();
+        const rect = container.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
         
@@ -95,18 +84,28 @@ const LeadChange = () => {
         });
       };
 
-      containerRef.current.addEventListener('mousemove', handleMouseMove);
-      containerRef.current.addEventListener('mouseenter', handleMouseEnter);
-      containerRef.current.addEventListener('mouseleave', handleMouseLeave);
-
-      return () => {
-        if (containerRef.current) {
-          containerRef.current.removeEventListener('mousemove', handleMouseMove);
-          containerRef.current.removeEventListener('mouseenter', handleMouseEnter);
-          containerRef.current.removeEventListener('mouseleave', handleMouseLeave);
-        }
-      };
+      // Wait for button to be in DOM
+      setTimeout(() => {
+        if (!buttonRef.current) return;
+        
+        // Set initial button state
+        gsap.set(buttonRef.current, {
+          opacity: 0,
+          scale: 0,
+          xPercent: -50,
+          yPercent: -50
+        });
       }, 100);
+
+      container.addEventListener('mousemove', handleMouseMove);
+      container.addEventListener('mouseenter', handleMouseEnter);
+      container.addEventListener('mouseleave', handleMouseLeave);
+      
+      return () => {
+        container.removeEventListener('mousemove', handleMouseMove);
+        container.removeEventListener('mouseenter', handleMouseEnter);
+        container.removeEventListener('mouseleave', handleMouseLeave);
+      };
     }
   }, [isHovered]);
 

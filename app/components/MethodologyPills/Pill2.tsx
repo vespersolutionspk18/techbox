@@ -208,9 +208,15 @@ const Pill2 = () => {
 
       {/* Arrow */}
       <div ref={arrowContainerRef} className="bg-blue-100 rounded-md p-3 flex items-center cursor-pointer">
-        <LuChevronRight ref={el => arrowRefs.current[0] = el} className="w-5 h-5 text-blue-600" />
-        <LuChevronRight ref={el => arrowRefs.current[1] = el} className="w-5 h-5 text-blue-600 -ml-2" />
-        <LuChevronRight ref={el => arrowRefs.current[2] = el} className="w-5 h-5 text-blue-600 -ml-2" />
+        <div ref={el => {arrowRefs.current[0] = el}}>
+          <LuChevronRight className="w-5 h-5 text-blue-600" />
+        </div>
+        <div ref={el => {arrowRefs.current[1] = el}} className="-ml-2">
+          <LuChevronRight className="w-5 h-5 text-blue-600" />
+        </div>
+        <div ref={el => {arrowRefs.current[2] = el}} className="-ml-2">
+          <LuChevronRight className="w-5 h-5 text-blue-600" />
+        </div>
       </div>
 
       {/* After Block */}

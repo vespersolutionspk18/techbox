@@ -40,6 +40,8 @@ export default function CustomPills() {
         const lastDot = dotRefs.current[dotRefs.current.length - 1]
         const containerRect = containerRef.current.getBoundingClientRect()
         
+        if (!firstDot || !lastDot) return
+        
         const firstDotRect = firstDot.getBoundingClientRect()
         const lastDotRect = lastDot.getBoundingClientRect()
         
@@ -122,10 +124,13 @@ export default function CustomPills() {
       }
     })
 
+    // Store event handlers for cleanup
+    const eventHandlers = new Map<HTMLDivElement, { mouseenter: () => void; mouseleave: () => void }>();
+
     // Add hover animations
     pillRefs.current.forEach((pill, index) => {
       if (pill) {
-        pill.addEventListener('mouseenter', () => {
+        const mouseenterHandler = () => {
           gsap.to(pill, {
             scale: 1.02,
             x: 10,
@@ -143,9 +148,9 @@ export default function CustomPills() {
             duration: 0.3,
             ease: 'power2.out'
           })
-        })
+        };
 
-        pill.addEventListener('mouseleave', () => {
+        const mouseleaveHandler = () => {
           gsap.to(pill, {
             scale: 1,
             x: 0,
@@ -163,18 +168,22 @@ export default function CustomPills() {
             duration: 0.3,
             ease: 'power2.out'
           })
-        })
+        };
+
+        pill.addEventListener('mouseenter', mouseenterHandler);
+        pill.addEventListener('mouseleave', mouseleaveHandler);
+        
+        // Store handlers for cleanup
+        eventHandlers.set(pill, { mouseenter: mouseenterHandler, mouseleave: mouseleaveHandler });
       }
     })
-
+    
     return () => {
       // Cleanup event listeners
-      pillRefs.current.forEach((pill) => {
-        if (pill) {
-          pill.removeEventListener('mouseenter', () => {})
-          pill.removeEventListener('mouseleave', () => {})
-        }
-      })
+      eventHandlers.forEach((handlers, pill) => {
+        pill.removeEventListener('mouseenter', handlers.mouseenter);
+        pill.removeEventListener('mouseleave', handlers.mouseleave);
+      });
     }
   }, [])
 
@@ -197,7 +206,7 @@ export default function CustomPills() {
         <div key={i} className="relative flex items-center">
           {/* Timeline dot - positioned to the left */}
           <div 
-            ref={(el) => dotRefs.current[i] = el}
+            ref={(el) => {dotRefs.current[i] = el}}
             className="absolute w-3 h-3 bg-stone-600 rounded-full z-10"
             style={{
               left: '-16px',
@@ -208,13 +217,13 @@ export default function CustomPills() {
 
           {/* Pill content */}
           <div 
-            ref={(el) => pillRefs.current[i] = el}
+            ref={(el) => {pillRefs.current[i] = el}}
             className="flex items-center justify-between w-full rounded-2xl border border-dashed border-gray-300 p-3 cursor-pointer transition-all duration-300"
           >
             <div className="flex items-center gap-4">
               {/* Icon box */}
               <div 
-                ref={(el) => iconRefs.current[i] = el}
+                ref={(el) => {iconRefs.current[i] = el}}
                 className="bg-blue-100 text-blue-600 p-2 rounded-md"
               >
                 <CheckSquare className="w-5 h-5" />
