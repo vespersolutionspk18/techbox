@@ -58,7 +58,10 @@ const Header = () => {
                     <a href="#" className="text-gray-300 hover:text-white transition-colors hover:cursor-pointer">ABOUT US</a>
                     <a href="#" className="text-gray-300 hover:text-white transition-colors hover:cursor-pointer">CASE STUDIES</a>
                     <a href="#" className="text-gray-300 hover:text-white transition-colors hover:cursor-pointer">CAREERS</a>
-                    <a href="#" className="text-gray-300 hover:text-white transition-colors hover:cursor-pointer">| SOFTREACH</a>
+                    <div className=" flex-row hidden lg:flex">
+                      <a href="#" className="text-gray-300 hover:text-white transition-colors hover:cursor-pointer">| SOFTREACH |</a>
+                    <a href="#" className="text-gray-300 hover:text-white transition-colors hover:cursor-pointer">&nbsp; EVO |</a>
+                    </div>
                 </div>
                 
             </div>
@@ -87,6 +90,7 @@ const Header = () => {
 
             </div>
             <a href="#" className="text-white hover:text-gray-300 transition-colors hover:cursor-pointer">SOFTREACH</a>
+            <a href="#" className="text-white hover:text-gray-300 transition-colors hover:cursor-pointer">EVO</a>
             <Button variant="default" className="mt-6 text-black bg-white hover:text-white text-xs">CONTACT</Button>
           </div>
         </div>
